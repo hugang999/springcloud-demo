@@ -1,0 +1,7 @@
+FROM registry.cn-hangzhou.aliyuncs.com/javacspring/java8
+
+ADD target/*.jar app.jar
+
+EXPOSE 7001
+
+ENTRTPOINT java -jar app.jar

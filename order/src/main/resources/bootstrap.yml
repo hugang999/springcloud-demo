@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      profile: dev
+      uri: http://localhost:8080
+    stream:
+      bindings:
+        myMessage:
+          #队列分组，可以防止多个实例全都能消费消息，分组之后，只有一个实例能消费消息
+          group: order
+          #使对象在rabbitmq控制台能以json格式查看
+          content-type: application/json
+  #配置zipkin的地址
+  zipkin:
+    base-url: http://192.168.164.129:9411/
+
+  #抽样的百分比，即监控的请求数量百分比，默认为10%
+  sleuth:
+    sampler:
+      percentage: 1
+
+#设置熔断器的超时时间。!!!!一定要加@HystrixCommand注解
+hystrix:
+  command:
+    #default表示全局配置
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+    #配置特定方法的超时时间
+#    getProductList:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 1500
+ribbon:
+  ReadTimeout: 3000
+  ConnectTimeout: 3000
+#开启feign的服务熔断机制
+feign:
+  hystrix:
+    enabled: true
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 3000
+#        readTimeout: 3000
+management:
+  context-path: /

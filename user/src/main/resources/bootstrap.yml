@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: user
+  cloud:
+    config:
+      profile: dev
+      uri: http://localhost:8080
+#    stream:
+#      bindings:
+#        myMessage:
+#          #队列分组，可以防止多个实例全都能消费消息，分组之后，只有一个实例能消费消息
+#          group: order
+#          #使对象在rabbitmq控制台能以json格式查看
+#          content-type: application/json
+

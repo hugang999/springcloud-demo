@@ -1,0 +1,57 @@
+
+spring:
+  application:
+    name: config
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/hugang999/config-repo.git
+          username: 17864228308
+          password: hg19970126hg
+          #拉取配置文件的存放路径
+          #basedir: C:/Users/hugang/AppData/Local/Temp/config-repo-7314979256171375840
+  rabbitmq:
+    host: 192.168.164.129
+    port: 5672
+    username: guest
+    password: guest
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+      instance-id: config
+      prefer-ip-address: true
+
+
+info:
+  app.name: config
+  build.artifactId: $project.artifactId$
+  build.version: $project.version$
+
+#暴露endpoints的写法（2.0.0之前的写法）
+endpoints:
+  env:
+    sensitive: false
+management:
+  security:
+    enabled: false
+
+#  2.0.0配置
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,mappings,env
+
+
+
+#获取配置的地址：
+  #/{name}-{profiles}.yml
+  #/{label}/{name}-{profiles}.yml
+
+  #name：服务名
+  #profiles：环境
+  #label：分支

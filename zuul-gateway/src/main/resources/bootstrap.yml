@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: zuul-gateway
+  cloud:
+    config:
+      profile: dev
+      uri: http://localhost:8080
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka
+  instance:
+    instance-id: zuul-gateway
+    prefer-ip-address: true
+    #配置服务的地址
+    #hostname:
+#zuul:
+#  host:
+#    socket-timeout-millis: 3000
+#    connect-timeout-millis: 3000
+#ribbon:
+#  ReadTimeout: 6000
+#  ConnectTimeout: 2000
+#
+##配置超时时间
+#hystrix:
+#  command:
+#    #default表示全局配置
+#    default:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 6000
+#负载均衡 当调用某个服务等待时间过长的时候, 对超时报错/熔断生效的是ReadTimeout,
+#ConnectTimeout则表示连接服务的时间,一般不用配置太久,1~2秒左右就可以了
+#如果hystrix.command.default.execution.timeout.enabled
+#为false即不进行熔断，而是根据ribbon的ReadTimeout抛出的异常
+#为true则会有两个执行方法超时的配置,一个就是ribbon的ReadTimeout,
+#一个就是熔断器hystrix的timeoutInMilliseconds, 此时谁的值小谁生效
+#规则：timeoutInMilliseconds > ReadTimeout > ConnectTimeout
+#hystrix的超时时间为:(1 + MaxAutoRetries + MaxAutoRetriesNextServer) * ReadTimeout
+ribbon:
+  #对所有操作请求都进行重试,默认false
+  OkToRetryOnAllOperations: false
+  #负载均衡超时时间，默认值5000
+  ReadTimeout: 120000
+  #ribbon请求连接的超时时间，默认值2000
+  ConnectTimeout: 6000
+  #对当前实例的重试次数，默认0
+  MaxAutoRetries: 0
+  #对切换实例的重试次数，默认1
+  MaxAutoRetriesNextServer: 1
+#熔断
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          #是否开启超时熔断
+          enabled: true
+        isolation:
+          thread:
+            #断路器超时时间，默认1000ms
+            timeoutInMilliseconds: 240000

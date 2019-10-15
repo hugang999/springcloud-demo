@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: product
+  cloud:
+    config:
+      profile: dev
+      uri: http://localhost:8080
+  #配置zipkin的地址
+  zipkin:
+    base-url: http://192.168.164.129:9411/
+  #抽样的百分比，即监控的请求数量百分比，默认为10%
+  sleuth:
+    sampler:
+      percentage: 1
+#    stream:
+#      bindings:
+#        myMessage:
+#          #队列分组，可以防止多个实例全都能消费消息，分组之后，只有一个实例能消费消息
+#          group: order
+#          #使对象在rabbitmq控制台能以json格式查看
+#          content-type: application/json
+feign:
+  hystrix:
+    enabled: true
