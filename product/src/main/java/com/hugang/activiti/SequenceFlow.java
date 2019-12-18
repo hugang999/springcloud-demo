@@ -6,25 +6,20 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * activiti使用实例
- * 步骤：
- * 1、初始化数据库表
- * 2、画流程图
- * 3、配置处理人
- * 4、修改流程图id和name
- * 5、部署流程定义
+ * 连线
  *
- * 注：所有的模糊查询都要手动加%
  * @author: hg
- * @date: 2019/12/10 15:17
+ * @date: 2019/12/18 14:38
  */
 @Slf4j
-public class HelloActiviti {
+public class SequenceFlow {
 
-    private static ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+    private ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
     /**
      * 部署流程定义
@@ -32,8 +27,10 @@ public class HelloActiviti {
     @Test
     public void deployProcessDefine() {
         RepositoryService repositoryService = processEngine.getRepositoryService();
-        Deployment deployment = repositoryService.createDeployment().name("请假流程001").addClasspathResource("helloworld.bpmn")
-                .addClasspathResource("helloworld.png").deploy();
+        Deployment deployment = repositoryService.createDeployment().name("请假流程002")
+                .addClasspathResource("SequenceFlow/SequenceFlowBPMN.bpmn")
+                .addClasspathResource("SequenceFlow/SequenceFlowBPMN.png")
+                .deploy();
         System.out.println("部署成功：流程id为  " + deployment.getId());
     }
 
@@ -43,7 +40,7 @@ public class HelloActiviti {
     @Test
     public void startProcess() {
         RuntimeService runtimeService = processEngine.getRuntimeService();
-        String processDefineKey = "HelloWorld";
+        String processDefineKey = "SequenceFlow";
         runtimeService.startProcessInstanceByKey(processDefineKey);
         System.out.println("流程启动成功");
     }
@@ -55,7 +52,7 @@ public class HelloActiviti {
     public void taskQuery() {
         TaskService taskService = processEngine.getTaskService();
 
-        List<Task> tasks = taskService.createTaskQuery().taskAssignee("王五").list();
+        List<Task> tasks = taskService.createTaskQuery().taskAssignee("张三").list();
 
         if (!tasks.isEmpty()) {
             for (Task task : tasks) {
@@ -72,14 +69,16 @@ public class HelloActiviti {
     }
 
     /**
-     * 完成任务
+     * 完成任务并使用流程变量指定流程走向
      */
     @Test
-    public void completeTask(){
+    public void completeTask() {
         TaskService taskService = processEngine.getTaskService();
 
-        String taskId = "7502";
-        taskService.complete(taskId);
+        String taskId = "25002";
+        Map<String, Object> variables = new HashMap<>();
+        variables.put("outcome", "重要");
+        taskService.complete(taskId, variables);
         System.out.println("任务完成");
     }
 }

@@ -131,7 +131,7 @@ public class ProcessDefineManage {
         //根据部署id删除流程定义，若此流程定义正在被使用，则会删除此流程定义相关的流程数据，包括 act_ru_* 和 act_hi_* 表的数据
         //service.deleteDeployment("1", true);
 
-        List<Deployment> deployments = service.createDeploymentQuery().processDefinitionKey("myProcess_1").list();
+        List<Deployment> deployments = service.createDeploymentQuery().processDefinitionKey("myProcess").list();
         if (deployments != null){
             for (Deployment deployment : deployments){
                 service.deleteDeployment(deployment.getId(), true);

@@ -2,11 +2,13 @@ package com.hugang.activiti;
 
 import lombok.extern.slf4j.Slf4j;
 import org.activiti.engine.*;
+import org.activiti.engine.history.HistoricVariableInstance;
 import org.activiti.engine.repository.Deployment;
 import org.junit.Test;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -102,5 +104,33 @@ public class ProcessVariables {
         Date date = (Date) service.getVariable(executionId, "请假时间");
         System.out.println("请假时间：" + date.toLocaleString() + date.toString());
 
+    }
+
+    /**
+     * 获取历史流程变量
+     */
+    @Test
+    public void getHisVariables(){
+        HistoryService service = processEngine.getHistoryService();
+
+//        HistoricVariableInstance singleResult = service.createHistoricVariableInstanceQuery().id("7501").singleResult();
+
+//        System.out.println("id:" + singleResult.getId());
+//        System.out.println("流程实例id:" + singleResult.getProcessInstanceId());
+//        System.out.println("任务id:" + singleResult.getTaskId());
+//        System.out.println("流程变量名称:" + singleResult.getVariableName());
+//        System.out.println("流程变量类型:" + singleResult.getVariableTypeName());
+        List<HistoricVariableInstance> list = service.createHistoricVariableInstanceQuery().processInstanceId("2501").list();
+
+        if (list != null && !list.isEmpty()){
+            for (HistoricVariableInstance singleResult : list){
+                System.out.println("id:" + singleResult.getId());
+                System.out.println("流程实例id:" + singleResult.getProcessInstanceId());
+                System.out.println("任务id:" + singleResult.getTaskId());
+                System.out.println("流程变量名称:" + singleResult.getVariableName());
+                System.out.println("流程变量类型:" + singleResult.getVariableTypeName());
+                System.out.println("******************************");
+            }
+        }
     }
 }
