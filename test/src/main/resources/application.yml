@@ -11,11 +11,11 @@ spring:
           password: hg19970126hg
           #拉取配置文件的存放路径
           #basedir: C:/Users/hugang/AppData/Local/Temp/config-repo-7314979256171375840
-  rabbitmq:
-    host: 192.168.164.129
-    port: 5672
-    username: guest
-    password: guest
+#  rabbitmq:
+#    host: 192.168.164.129
+#    port: 5672
+#    username: guest
+#    password: guest
 
 eureka:
   client:
@@ -38,6 +38,8 @@ endpoints:
 management:
   security:
     enabled: false
+server:
+  port: 1111
 
 #  2.0.0配置
 #management:
