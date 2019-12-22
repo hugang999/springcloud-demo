@@ -17,6 +17,7 @@
         <module>test</module>
         <module>zuul-gateway</module>
         <module>user</module>
+        <module>shiro</module>
 
     </modules>
 
