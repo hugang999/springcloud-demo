@@ -32,9 +32,9 @@ public class InitTable {
         ProcessEngineConfiguration configuration = ProcessEngineConfiguration
                 .createStandaloneProcessEngineConfiguration();
         configuration.setJdbcDriver("com.mysql.jdbc.Driver");
-        configuration.setJdbcUrl("jdbc:mysql://192.168.164.129:3306/activiti?useUnicode=true&amp;characterEncoding=utf8");
+        configuration.setJdbcUrl("jdbc:mysql://27.150.26.146:3306/tianmuhu?useUnicode=true&amp;characterEncoding=utf8");
         configuration.setJdbcUsername("root");
-        configuration.setJdbcPassword("root");
+        configuration.setJdbcPassword("dms5000@2019");
 //        configuration.setDataSource(dataSource);
 
         /**
@@ -44,7 +44,7 @@ public class InitTable {
          * DB_SCHEMA_UPDATE_TRUE = "true" 如果数据库中没有表，就创建
          * "drop-create":删除并创建
          */
-        configuration.setDatabaseSchemaUpdate("drop-create");
+        configuration.setDatabaseSchemaUpdate("true");
 
         //获取流程引擎
         ProcessEngine processEngine = configuration.buildProcessEngine();

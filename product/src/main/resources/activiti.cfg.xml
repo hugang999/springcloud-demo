@@ -5,7 +5,7 @@
 
     <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
         <property name="jdbcDriver" value="com.mysql.jdbc.Driver"></property>
-        <property name="jdbcUrl" value="jdbc:mysql://192.168.224.10:3306/activiti?useUnicode=true&amp;characterEncoding=utf8"></property>
+        <property name="jdbcUrl" value="jdbc:mysql://192.168.164.129:3306/activiti?useUnicode=true&amp;characterEncoding=utf8"></property>
         <property name="jdbcUsername" value="root"></property>
         <property name="jdbcPassword" value="root"></property>
         <!-- 默认为false,为true表示数据库结构自动更新，如添加少的表，还有值：create-drop，表示启动流程引擎的时候创建表，调用processEngine.close()的时候会删除相关表 -->
